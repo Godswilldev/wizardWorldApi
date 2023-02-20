@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CreateSpellDto } from "./dto/create-spell.dto";
-import { UpdateSpellDto } from "./dto/update-spell.dto";
+import { CreateSpellDto, UpdateSpellDto } from "./dto/spell.dto";
 
 @Injectable()
 export class SpellsService {

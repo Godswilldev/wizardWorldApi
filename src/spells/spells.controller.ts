@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
 import { SpellsService } from "./spells.service";
-import { CreateSpellDto } from "./dto/create-spell.dto";
-import { UpdateSpellDto } from "./dto/update-spell.dto";
+import { CreateSpellDto, UpdateSpellDto } from "./dto/spell.dto";
+import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
 
 @Controller("spells")
 export class SpellsController {
