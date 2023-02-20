@@ -4,6 +4,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { WizardsModule } from "src/wizard/wizard.module";
 import { Wizard } from "src/wizard/entities/wizard.entity";
+import { SpellsModule } from "./spells/spells.module";
+import { ElixirsModule } from "./elixirs/elixirs.module";
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { Wizard } from "src/wizard/entities/wizard.entity";
       synchronize: true,
     }),
     WizardsModule,
+    SpellsModule,
+    ElixirsModule,
   ],
 })
 export class AppModule {}
