@@ -5,8 +5,19 @@ import { QueryDto, Paginate } from "src/utils/pagination.utils";
 import { StandardResponse } from "src/utils/responseManager.utils";
 import { CreateWizardDto, WizardDto } from "src/wizard/dto/wizard.dto";
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
-import { ClassSerializerInterceptor, Query, UseInterceptors } from "@nestjs/common";
-import { Controller, Get, Body, Patch, Param, Post, Delete, HttpCode } from "@nestjs/common";
+import {
+  Get,
+  Body,
+  Post,
+  Patch,
+  Query,
+  Param,
+  Delete,
+  HttpCode,
+  Controller,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from "@nestjs/common";
 
 @Controller("wizard")
 @ApiTags("Wizards")

@@ -2,8 +2,8 @@ import * as fs from "fs";
 import helmet from "helmet";
 import * as morgan from "morgan";
 import { AppModule } from "src/app.module";
+import { NestFactory } from "@nestjs/core";
 import { ValidationPipe, INestApplication } from "@nestjs/common";
-import { NestFactory, NestApplication } from "@nestjs/core";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { GlobalErrorHandler } from "src/utils/all-exception-filter";
 

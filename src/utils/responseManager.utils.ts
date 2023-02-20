@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
+import { HttpException, HttpStatus } from "@nestjs/common";
 
 interface Response<T> {
   status: string;
@@ -8,6 +8,7 @@ interface Response<T> {
   data: T;
   meta?: object;
 }
+
 export class ResponseManager {
   public static StandardResponse<T>({
     status,
