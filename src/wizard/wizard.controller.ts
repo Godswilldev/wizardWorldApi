@@ -21,6 +21,7 @@ import {
   Delete,
   HttpCode,
   Controller,
+  ParseUUIDPipe,
   UseInterceptors,
   ClassSerializerInterceptor,
 } from "@nestjs/common";
@@ -74,10 +75,13 @@ export class WizardController {
     return this.wizardService.remove(id);
   }
 
-  @Patch("assign")
+  @Patch(":wizard_id/assign")
   @ApiBody({ description: "Assign a spell to a wizard", type: AssignSpellToWizardDto })
   @ApiOkResponse({ description: "Spell Assigned successfully", type: StandardResponse<WizardDto> })
-  assign(@Body() wizSpell: AssignSpellToWizardDto): Promise<StandardResponse<Wizard>> {
-    return this.wizardService.assign(wizSpell);
+  assign(
+    @Param("wizard_id", ParseUUIDPipe) wizard_id: string,
+    @Body("spell_id", ParseUUIDPipe) spell_id: string,
+  ): Promise<StandardResponse<Wizard>> {
+    return this.wizardService.assign(wizard_id, spell_id);
   }
 }

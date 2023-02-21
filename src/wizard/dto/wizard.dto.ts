@@ -29,10 +29,7 @@ export class WizardDto {
 
 export class AssignSpellToWizardDto {
   @ApiProperty({ example: "40d61093-2fcb-424c-be4c-413dcfc519fb" })
-  @IsUUID("4")
-  wizard_id: string;
-
-  @ApiProperty({ example: "40d61093-2fcb-424c-be4c-413dcfc519fb" })
+  @IsNotEmpty()
   @IsUUID("4")
   spell_id: string;
 }

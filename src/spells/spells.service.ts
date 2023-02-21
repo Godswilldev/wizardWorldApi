@@ -31,7 +31,7 @@ export class SpellsService {
     return ResponseManager.StandardResponse({
       status: "success",
       code: 201,
-      message: "Spells created successfully",
+      message: "Spell created successfully",
       data: newSpell,
     });
   }

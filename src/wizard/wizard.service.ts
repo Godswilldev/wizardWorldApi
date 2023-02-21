@@ -2,12 +2,12 @@ import { Repository, Like } from "typeorm";
 import { Injectable } from "@nestjs/common";
 import { Guard } from "src/utils/guard.utils";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Spell } from "src/spells/entities/spell.entity";
 import { Wizard } from "src/wizard/entities/wizard.entity";
-import { AssignSpellToWizardDto, UpdateWizardDto } from "src/wizard/dto/wizard.dto";
 import { CreateWizardDto } from "src/wizard/dto/wizard.dto";
 import { QueryDto, paginateResponse } from "src/utils/pagination.utils";
+import { AssignSpellToWizardDto, UpdateWizardDto } from "src/wizard/dto/wizard.dto";
 import { ResponseManager, StandardResponse } from "src/utils/responseManager.utils";
-import { Spell } from "../spells/entities/spell.entity";
 
 @Injectable()
 export class WizardsService {
@@ -48,17 +48,28 @@ export class WizardsService {
     });
   }
 
-  async assign(wizSpell: AssignSpellToWizardDto): Promise<StandardResponse<Wizard>> {
+  async assign(wizard_id: string, spell_id: string): Promise<StandardResponse<Wizard>> {
     const wizard = await this.wizardRepository.findOne({
-      where: { id: wizSpell.wizard_id },
+      where: { id: wizard_id },
       relations: ["spells"],
     });
 
     Guard.AgainstNotFound(wizard, "wizard");
 
-    const spell = await this.spellsRepository.findOne({ where: { id: wizSpell.spell_id } });
+    const spell = await this.spellsRepository.findOne({ where: { id: spell_id } });
 
     Guard.AgainstNotFound(spell, "spell");
+
+    const spellAlreadyAssignedToUser = wizard.spells.find((sp: Spell) => sp.id === spell.id);
+
+    if (spellAlreadyAssignedToUser) {
+      return ResponseManager.StandardResponse({
+        status: "failed",
+        code: 409,
+        message: "This Spell has Already been Assigned to this wizard",
+        data: null,
+      });
+    }
 
     wizard.spells.push(spell);
 
@@ -66,8 +77,8 @@ export class WizardsService {
 
     return ResponseManager.StandardResponse({
       status: "success",
-      code: 201,
-      message: "Wizards created successfully",
+      code: 200,
+      message: "Spell Assigned successfully",
       data: wizard,
     });
   }

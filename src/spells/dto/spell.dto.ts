@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PartialType } from "@nestjs/swagger";
+import { IsBoolean, IsEnum, IsNotEmpty, IsString } from "class-validator";
 import { SpellLightEnum, SpellTypeEnum } from "src/spells/entities/spell.entity";
 
 export class SpellDto {
@@ -30,24 +31,36 @@ export class SpellDto {
 
 export class CreateSpellDto {
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   incantation: string;
 
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   effect: string;
 
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   creator: string;
 
   @ApiProperty()
+  @IsBoolean()
+  @IsNotEmpty()
   canBeVerbal: boolean;
 
   @ApiProperty({ enum: SpellTypeEnum })
+  @IsEnum(SpellTypeEnum)
   type: SpellTypeEnum;
 
   @ApiProperty({ enum: SpellLightEnum })
+  @IsEnum(SpellLightEnum)
   light: SpellLightEnum;
 }
 

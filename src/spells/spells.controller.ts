@@ -16,7 +16,9 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   ClassSerializerInterceptor,
+  Req,
 } from "@nestjs/common";
+import { Request } from "express";
 
 @Controller("spell")
 @ApiTags("Spells")
@@ -37,6 +39,7 @@ export class SpellController {
     type: StandardResponse<SpellDto>,
   })
   async create(@Body() createSpell: CreateSpellDto): Promise<StandardResponse<SpellDto>> {
+    console.log(createSpell);
     return await this.spellsService.create(createSpell);
   }
 

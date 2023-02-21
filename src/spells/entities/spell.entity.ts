@@ -55,10 +55,10 @@ export class Spell extends BaseModel {
   @Column({ nullable: false })
   name: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   incantation: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   effect: string;
 
   @Column({ nullable: false })
