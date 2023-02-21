@@ -1,25 +1,84 @@
+import { Repository, Like } from "typeorm";
 import { Injectable } from "@nestjs/common";
-import { CreateElixirDto, UpdateElixirDto } from "./dto/elixir.dto";
+import { Guard } from "src/utils/guard.utils";
+import { InjectRepository } from "@nestjs/typeorm";
+import { ResponseManager, StandardResponse } from "src/utils/responseManager.utils";
+import { Elixir } from "./entities/elixir.entity";
+import { CreateElixirDto, ElixirQueryDto, UpdateElixirDto } from "./dto/elixir.dto";
 
 @Injectable()
 export class ElixirsService {
-  create(createElixirDto: CreateElixirDto) {
-    return "This action adds a new elixir";
+  constructor(@InjectRepository(Elixir) private readonly elixirRepository: Repository<Elixir>) {}
+
+  async findAll(query: ElixirQueryDto): Promise<StandardResponse<Elixir[]>> {
+    const name = query.name || "";
+    const difficulty = query.difficulty;
+
+    const data = await this.elixirRepository.find({
+      where: { name: Like(`%${name}%`), difficulty },
+    });
+
+    return ResponseManager.StandardResponse({
+      code: 200,
+      message: "Elixirs retrieved successfully",
+      data,
+      status: "success",
+    });
   }
 
-  findAll() {
-    return `This action returns all elixirs`;
+  async create(elixir: CreateElixirDto): Promise<StandardResponse<Elixir>> {
+    const newElixir = this.elixirRepository.create(elixir);
+
+    await newElixir.save();
+
+    return ResponseManager.StandardResponse({
+      status: "success",
+      code: 201,
+      message: "Elixirs created successfully",
+      data: newElixir,
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} elixir`;
+  async findOne(id: string): Promise<StandardResponse<Elixir>> {
+    const elixir = await this.elixirRepository.findOne({ where: { id } });
+
+    Guard.AgainstNotFound(elixir, "elixir");
+
+    return ResponseManager.StandardResponse({
+      status: "success",
+      code: 200,
+      message: "Elixir retrieved Successfully",
+      data: elixir,
+    });
   }
 
-  update(id: number, updateElixirDto: UpdateElixirDto) {
-    return `This action updates a #${id} elixir`;
+  async update(id: string, updateElixirDto: UpdateElixirDto): Promise<StandardResponse<Elixir>> {
+    const elixir = await this.elixirRepository.findOneBy({ id });
+
+    Guard.AgainstNotFound(elixir, "elixir");
+
+    await this.elixirRepository.update({ id }, { ...updateElixirDto });
+
+    return ResponseManager.StandardResponse({
+      status: "success",
+      code: 200,
+      message: "Elixir Updated Successfully",
+      data: elixir,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} elixir`;
+  async remove(id: string): Promise<StandardResponse<null>> {
+    const elixir = await this.elixirRepository.findOneBy({ id });
+
+    Guard.AgainstNotFound(elixir, "elixir");
+
+    await this.elixirRepository.delete({ id });
+
+    return ResponseManager.StandardResponse({
+      status: "success",
+      code: 204,
+      message: "Elixir deleted Successfully",
+      data: null,
+    });
   }
 }
