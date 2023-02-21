@@ -1,11 +1,13 @@
+import { Elixir } from "src/elixirs/entities/elixir.entity";
+import { ElixirsService } from "src/elixirs/elixirs.service";
 import { StandardResponse } from "src/utils/responseManager.utils";
+import { ApiTags, ApiOkResponse, ApiCreatedResponse, ApiNoContentResponse } from "@nestjs/swagger";
 import {
-  ApiTags,
-  ApiBody,
-  ApiOkResponse,
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-} from "@nestjs/swagger";
+  CreateElixirDto,
+  ElixirDto,
+  ElixirQueryDto,
+  UpdateElixirDto,
+} from "src/elixirs/dto/elixir.dto";
 import {
   Get,
   Body,
@@ -20,9 +22,6 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
 } from "@nestjs/common";
-import { ElixirsService } from "./elixirs.service";
-import { Elixir } from "./entities/elixir.entity";
-import { CreateElixirDto, ElixirDto, ElixirQueryDto, UpdateElixirDto } from "./dto/elixir.dto";
 
 @Controller("elixir")
 @ApiTags("Elixirs")

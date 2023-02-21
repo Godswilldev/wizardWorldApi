@@ -2,9 +2,9 @@ import { Repository, Like } from "typeorm";
 import { Injectable } from "@nestjs/common";
 import { Guard } from "src/utils/guard.utils";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Elixir } from "src/elixirs/entities/elixir.entity";
 import { ResponseManager, StandardResponse } from "src/utils/responseManager.utils";
-import { Elixir } from "./entities/elixir.entity";
-import { CreateElixirDto, ElixirQueryDto, UpdateElixirDto } from "./dto/elixir.dto";
+import { CreateElixirDto, ElixirQueryDto, UpdateElixirDto } from "src/elixirs/dto/elixir.dto";
 
 @Injectable()
 export class ElixirsService {

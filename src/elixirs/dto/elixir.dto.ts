@@ -1,6 +1,6 @@
-import { PartialType, ApiProperty } from "@nestjs/swagger";
 import { IsString, IsNotEmpty, IsEnum } from "class-validator";
 import { ElixirDifficultyEnum } from "src/elixirs/entities/elixir.entity";
+import { PartialType, ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class CreateElixirDto {
   @ApiProperty()
@@ -67,9 +67,9 @@ export class ElixirDto {
 export class UpdateElixirDto extends PartialType(CreateElixirDto) {}
 
 export class ElixirQueryDto {
-  @ApiProperty()
-  name: string;
+  @ApiPropertyOptional()
+  name?: string;
 
-  @ApiProperty({ enum: ElixirDifficultyEnum })
-  difficulty: ElixirDifficultyEnum;
+  @ApiPropertyOptional({ enum: ElixirDifficultyEnum })
+  difficulty?: ElixirDifficultyEnum;
 }
