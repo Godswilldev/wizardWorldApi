@@ -2,11 +2,9 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ThrottlerModule } from "@nestjs/throttler";
-import { SpellsModule } from "./spells/spells.module";
+import { SpellsModule } from "src/spells/spells.module";
 import { WizardsModule } from "src/wizard/wizard.module";
-import { Spell } from "src/spells/entities/spell.entity";
-import { ElixirsModule } from "./elixirs/elixirs.module";
-import { Wizard } from "src/wizard/entities/wizard.entity";
+import { ElixirsModule } from "src/elixirs/elixirs.module";
 
 @Module({
   imports: [
@@ -19,11 +17,11 @@ import { Wizard } from "src/wizard/entities/wizard.entity";
       host: "localhost",
       database: "wizardworld",
       username: "root",
-      password: "Godis-4me",
-      // entities: [Wizard, Spell],
+      password: process.env.LOCAL_DATABASE_PASSWORD,
       synchronize: true,
       autoLoadEntities: true,
     }),
+
     WizardsModule,
     SpellsModule,
     ElixirsModule,
