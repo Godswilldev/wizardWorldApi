@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { ElixirsService } from "./elixirs.service";
-import { ElixirController } from "./elixirs.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Elixir } from "./entities/elixir.entity";
+import { Elixir } from "src/elixirs/entities/elixir.entity";
+import { ElixirsService } from "src/elixirs/elixirs.service";
+import { ElixirController } from "src/elixirs/elixirs.controller";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Elixir])],
