@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CreateElixirDto } from "./dto/create-elixir.dto";
-import { UpdateElixirDto } from "./dto/update-elixir.dto";
+import { CreateElixirDto, UpdateElixirDto } from "./dto/elixir.dto";
 
 @Injectable()
 export class ElixirsService {

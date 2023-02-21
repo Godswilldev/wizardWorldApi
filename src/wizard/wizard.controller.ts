@@ -5,11 +5,11 @@ import { StandardResponse } from "src/utils/responseManager.utils";
 import { CreateWizardDto, WizardDto } from "src/wizard/dto/wizard.dto";
 import { AssignSpellToWizardDto, UpdateWizardDto } from "src/wizard/dto/wizard.dto";
 import {
+  ApiTags,
   ApiBody,
+  ApiOkResponse,
   ApiCreatedResponse,
   ApiNoContentResponse,
-  ApiOkResponse,
-  ApiTags,
 } from "@nestjs/swagger";
 import {
   Get,

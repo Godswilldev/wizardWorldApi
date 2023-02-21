@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
 import { ElixirsService } from "./elixirs.service";
-import { CreateElixirDto } from "./dto/create-elixir.dto";
-import { UpdateElixirDto } from "./dto/update-elixir.dto";
+import { CreateElixirDto, UpdateElixirDto } from "./dto/elixir.dto";
 import { ApiTags } from "@nestjs/swagger";
 
 @Controller("elixirs")
