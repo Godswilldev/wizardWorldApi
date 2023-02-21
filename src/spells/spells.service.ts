@@ -11,8 +11,10 @@ export class SpellsService {
   constructor(@InjectRepository(Spell) private readonly spellsRepository: Repository<Spell>) {}
 
   async findAll(name: string): Promise<StandardResponse<Spell[]>> {
+    const search = name || "";
+
     const data = await this.spellsRepository.find({
-      where: { name: Like(`%${name}%`) },
+      where: { name: Like(`%${search}%`) },
     });
 
     return ResponseManager.StandardResponse({
