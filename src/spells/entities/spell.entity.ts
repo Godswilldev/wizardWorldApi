@@ -1,5 +1,4 @@
-import { Column } from "typeorm";
-import { ApiProperty } from "@nestjs/swagger";
+import { Column, Entity } from "typeorm";
 import BaseModel from "src/entities/baseModel.entity";
 
 export enum SpellTypeEnum {
@@ -51,32 +50,26 @@ export enum SpellLightEnum {
   BlackSmoke = "BlackSmoke",
 }
 
+@Entity()
 export class Spell extends BaseModel {
-  @ApiProperty()
   @Column({ nullable: false })
   name: string;
 
-  @ApiProperty()
   @Column({ nullable: true })
   incantation: string;
 
-  @ApiProperty()
   @Column({ nullable: true })
   effect: string;
 
-  @ApiProperty()
   @Column({ nullable: false })
   creator: string;
 
-  @ApiProperty()
   @Column({ nullable: false })
   canBeVerbal: boolean;
 
-  @ApiProperty()
-  @Column({ nullable: false, enum: SpellTypeEnum })
+  @Column({ nullable: false, type: "enum", default: SpellTypeEnum.None, enum: SpellTypeEnum })
   type: SpellTypeEnum;
 
-  @ApiProperty()
-  @Column({ nullable: false, enum: SpellLightEnum })
+  @Column({ nullable: false, type: "enum", default: SpellLightEnum.Blue, enum: SpellLightEnum })
   light: SpellLightEnum;
 }

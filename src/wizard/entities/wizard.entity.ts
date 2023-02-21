@@ -1,18 +1,16 @@
-import { Column, Entity } from "typeorm";
-import { ApiProperty } from "@nestjs/swagger";
 import BaseModel from "src/entities/baseModel.entity";
+import { Spell } from "src/spells/entities/spell.entity";
+import { Column, Entity, ManyToMany, JoinTable } from "typeorm";
 
 @Entity()
 export class Wizard extends BaseModel {
-  @ApiProperty()
   @Column({ nullable: false })
   firstname: string;
 
-  @ApiProperty()
   @Column({ nullable: false })
   lastname: string;
 
-  // @ApiProperty()
-  // @Column((type) => Spell)
-  // spells: Spell[];
+  @ManyToMany(() => Spell)
+  @JoinTable()
+  spells: Spell[];
 }

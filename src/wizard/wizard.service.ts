@@ -3,14 +3,18 @@ import { Injectable } from "@nestjs/common";
 import { Guard } from "src/utils/guard.utils";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Wizard } from "src/wizard/entities/wizard.entity";
-import { UpdateWizardDto } from "src/wizard/dto/wizard.dto";
+import { AssignSpellToWizardDto, UpdateWizardDto } from "src/wizard/dto/wizard.dto";
 import { CreateWizardDto } from "src/wizard/dto/wizard.dto";
 import { QueryDto, paginateResponse } from "src/utils/pagination.utils";
 import { ResponseManager, StandardResponse } from "src/utils/responseManager.utils";
+import { Spell } from "../spells/entities/spell.entity";
 
 @Injectable()
 export class WizardsService {
-  constructor(@InjectRepository(Wizard) private readonly wizardRepository: Repository<Wizard>) {}
+  constructor(
+    @InjectRepository(Wizard) private readonly wizardRepository: Repository<Wizard>,
+    @InjectRepository(Spell) private readonly spellsRepository: Repository<Spell>,
+  ) {}
 
   async findAll(query: QueryDto): Promise<StandardResponse<Wizard[]>> {
     const limit = query.limit || 10;
@@ -44,8 +48,32 @@ export class WizardsService {
     });
   }
 
+  async assign(wizSpell: AssignSpellToWizardDto): Promise<StandardResponse<Wizard>> {
+    const wizard = await this.wizardRepository.findOne({
+      where: { id: wizSpell.wizard_id },
+      relations: ["spells"],
+    });
+
+    Guard.AgainstNotFound(wizard, "wizard");
+
+    const spell = await this.spellsRepository.findOne({ where: { id: wizSpell.spell_id } });
+
+    Guard.AgainstNotFound(spell, "spell");
+
+    wizard.spells.push(spell);
+
+    await wizard.save();
+
+    return ResponseManager.StandardResponse({
+      status: "success",
+      code: 201,
+      message: "Wizards created successfully",
+      data: wizard,
+    });
+  }
+
   async findOne(id: string): Promise<StandardResponse<Wizard>> {
-    const wizard = await this.wizardRepository.findOneBy({ id });
+    const wizard = await this.wizardRepository.findOne({ where: { id }, relations: ["spells"] });
 
     Guard.AgainstNotFound(wizard, "wizard");
 
