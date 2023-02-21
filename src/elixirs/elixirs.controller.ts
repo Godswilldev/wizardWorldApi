@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { ElixirsService } from "./elixirs.service";
 import { CreateElixirDto } from "./dto/create-elixir.dto";
 import { UpdateElixirDto } from "./dto/update-elixir.dto";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("elixirs")
+@ApiTags("Elixirs")
 export class ElixirsController {
   constructor(private readonly elixirsService: ElixirsService) {}
 

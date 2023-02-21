@@ -17,7 +17,7 @@ const bootstrap = async () => {
 
   const config = new DocumentBuilder()
     .setTitle("Wizard World API")
-    .setDescription("Huguoh Backend Developer Challenge")
+    .setDescription("Otugoh Backend Developer Challenge")
     .setVersion("1.0")
     .addBearerAuth()
     .addServer("http://localhost:8989")

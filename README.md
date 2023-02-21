@@ -2,40 +2,40 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-  <p align="center">Hackathon Starter Kit with nestjs</p>
+  <p align="center">Wizard World API</p>
 
 ## Description
 
-Building a NestJs Backend API ? Why start from scratch ? Use this Starter Kit. Comes with Authentication, Authorization out of the box.
+Otugoh Backend Developer Challenge
 
 ## Installation
 
 ```bash
-$ npm install
+ npm install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+ npm run start
 
 # watch mode
-$ npm run start:dev
+ npm run start:dev
 
 # production mode
-$ npm run start:prod
+ npm run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+ npm run test
 
 # e2e tests
-$ npm run test:e2e
+ npm run test:e2e
 
 # test coverage
-$ npm run test:cov
+ npm run test:cov
 ```
